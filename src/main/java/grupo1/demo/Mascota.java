@@ -5,6 +5,7 @@ public class Mascota {
     private String raza;
     private int patas;
     private boolean vivo;
+    private String gruñir;
 
     public Mascota(String raza, int patas, boolean vivo){
         this.raza = raza;
@@ -33,5 +34,15 @@ public class Mascota {
         this.vivo = vivo;
     }
 
+    public boolean isVivo() {
+        return vivo;
+    }
 
+    public String getGruñir() {
+        return gruñir;
+    }
+
+    public void setGruñir(String gruñir) {
+        this.gruñir = gruñir;
+    }
 }
