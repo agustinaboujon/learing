@@ -21,18 +21,18 @@ public class MascotaController {
         return mascotaInterfaz.getMascota();
     }
 
-    @GetMapping(path = "/list2")
+    @GetMapping
     public Mascota mascota(@RequestParam("animal") String animal) {
         return mascotaInterfaz.mascota(animal);
     }
 
-    @PostMapping("/animalNuevo")
+    @PostMapping
     public List<Mascota> aNuevo(@RequestBody Mascota nuevo){ return mascotaInterfaz.aNuevo(nuevo); }
 
-    @PutMapping("/modificar")
+    @PutMapping
     public List<Mascota> modificar(@RequestBody Mascota modificada) {return mascotaInterfaz.modificar(modificada); }
 
-    @DeleteMapping("/eliminar")
+    @DeleteMapping
     public List<Mascota> eliminarRaza(@RequestBody Mascota eliminada){return mascotaInterfaz.eliminarRaza(eliminada);}
 
 }

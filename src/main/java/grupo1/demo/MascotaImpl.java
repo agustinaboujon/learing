@@ -35,17 +35,17 @@ public class MascotaImpl implements MascotaInterfaz {
     }
 
     @Override
-    public Mascota mascota(String raza){
+    public Mascota mascota(String raza) {
         List<Mascota> response = ListaMascotas();
 
-  //      for(int i = 0 ; i < response.size();i++) {
-  //          if(response.get(i).getRaza().equals(raza)) {
-  //              return response.get(i);
-  //          }
-  //      }
+        //      for(int i = 0 ; i < response.size();i++) {
+        //          if(response.get(i).getRaza().equals(raza)) {
+        //              return response.get(i);
+        //          }
+        //      }
 
-        for (Mascota mascota:response) {
-            if(mascota.getRaza().equals(raza)) {
+        for (Mascota mascota : response) {
+            if (mascota.getRaza().equals(raza)) {
                 return mascota;
             }
         }
@@ -54,51 +54,45 @@ public class MascotaImpl implements MascotaInterfaz {
     }
 
     @Override
-    public List<Mascota> aNuevo(Mascota nuevo){
+    public List<Mascota> aNuevo(Mascota nuevo) {
         List<Mascota> response = ListaMascotas();
         response.add(nuevo);
         return response;
     }
 
     @Override
-    public List<Mascota> modificar(Mascota modificada){
+    public List<Mascota> modificar(Mascota modificada) {
         List<Mascota> response = ListaMascotas();
-        int posicion = -1;
-        for (Mascota mascotita:response) {
-            if(mascotita.getRaza().equals(modificada.getRaza())){
-              posicion = response.indexOf(mascotita);
+        boolean modificado = false;
+        for (Mascota mascotita : response) {
+            if (mascotita.getRaza().equals(modificada.getRaza())) {
+                mascotita.setPatas(modificada.getPatas());
+                mascotita.setVivo(modificada.getVivo());
+                modificado = true;
             }
         }
-        if(posicion!=-1){
-         response.get(posicion).setPatas(modificada.getPatas());
-         response.get(posicion).setVivo(modificada.getVivo());
-        }
-        else{
-            //response.add(modificada);
+        if (!modificado) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "No existe el animal");
         }
-
         return response;
     }
 
     @Override
-    public List<Mascota> eliminarRaza(Mascota eliminada){
+    public List<Mascota> eliminarRaza(Mascota eliminada) {
         List<Mascota> response = ListaMascotas();
-        int posicion = -1;
-        for (Mascota mascotita:response) {
-            if(mascotita.getRaza().equals(eliminada.getRaza())){
-                posicion = response.indexOf(mascotita);
+
+        for (Mascota mascotita : response) {
+            if (mascotita.getRaza().equals(eliminada.getRaza())) {
+                response.remove(mascotita);
+                //No es una buena practica pero la unica solucion ya que no tenemos id
+                break;
+            }
+            else{
+                throw new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "No existe el animal");
             }
         }
-        if(posicion!=-1){
-            response.remove(posicion);
-        }
-        else{
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "No existe el animal");
-        }
-
         return response;
     }
 }
