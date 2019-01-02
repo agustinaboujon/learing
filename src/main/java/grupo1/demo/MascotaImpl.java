@@ -1,6 +1,8 @@
 package grupo1.demo;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,7 +74,9 @@ public class MascotaImpl implements MascotaInterfaz {
          response.get(posicion).setVivo(modificada.getVivo());
         }
         else{
-            response.add(modificada);
+            //response.add(modificada);
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "No existe el animal");
         }
 
         return response;
@@ -89,6 +93,10 @@ public class MascotaImpl implements MascotaInterfaz {
         }
         if(posicion!=-1){
             response.remove(posicion);
+        }
+        else{
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "No existe el animal");
         }
 
         return response;
