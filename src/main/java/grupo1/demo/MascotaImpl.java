@@ -1,5 +1,7 @@
 package grupo1.demo;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -10,39 +12,39 @@ import java.util.List;
 @Service
 public class MascotaImpl implements MascotaInterfaz {
 
+    @Autowired
+    @Qualifier("mascotaRepository")
+    MascotaRepository mascotaRepository;
+
     @Override
     public List<Mascota> getMascota() {
         return ListaMascotas();
     }
 
     private List<Mascota> ListaMascotas() {
-        List<Mascota> response = new ArrayList<>();
+        /*List<Mascota> response = new ArrayList<>();
 
-        Mascota mascota = new Mascota("Gato", 4, true);
+        Mascota mascota = new Mascota(1, "Gato", 4, true);
         response.add(mascota);
-        mascota = new Mascota("´Perro", 4, true);
+        mascota = new Mascota(2,"´Perro", 4, true);
         response.add(mascota);
-        mascota = new Mascota("Pajaro", 2, false);
+        mascota = new Mascota(3,"Pajaro", 2, false);
         response.add(mascota);
-        mascota = new Mascota("Conejo", 4, true);
+        mascota = new Mascota(5,"Conejo", 4, true);
         response.add(mascota);
-        mascota = new Mascota("Rata", 4, true);
+        mascota = new Mascota(4, "Rata", 4, true);
         response.add(mascota);
-        mascota = new Mascota("Pato", 3, true);
+        mascota = new Mascota(6,"Pato", 3, true);
         response.add(mascota);
 
-        return response;
+        return response;*/
+
+        return mascotaRepository.findAll();
     }
 
     @Override
     public Mascota mascota(String raza) {
         List<Mascota> response = ListaMascotas();
-
-        //      for(int i = 0 ; i < response.size();i++) {
-        //          if(response.get(i).getRaza().equals(raza)) {
-        //              return response.get(i);
-        //          }
-        //      }
 
         for (Mascota mascota : response) {
             if (mascota.getRaza().equals(raza)) {
@@ -50,24 +52,35 @@ public class MascotaImpl implements MascotaInterfaz {
             }
         }
 
-        return null;
+        throw new ResponseStatusException(
+                HttpStatus.NOT_FOUND, "No existe el animal");
     }
 
     @Override
     public List<Mascota> aNuevo(Mascota nuevo) {
         List<Mascota> response = ListaMascotas();
-        response.add(nuevo);
-        return response;
+
+        for (Mascota mascota : response) {
+            if (mascota.getIdMascota()==nuevo.getIdMascota()) {
+                throw new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "Ya existe el animal");
+            }
+        }
+        mascotaRepository.save(nuevo);
+
+        return ListaMascotas();
     }
 
     @Override
     public List<Mascota> modificar(Mascota modificada) {
         List<Mascota> response = ListaMascotas();
         boolean modificado = false;
-        for (Mascota mascotita : response) {
+        /*for (Mascota mascotita : response) {
             if (mascotita.getRaza().equals(modificada.getRaza())) {
                 mascotita.setPatas(modificada.getPatas());
                 mascotita.setVivo(modificada.getVivo());
+                mascotita.setRaza(modificada.getRaza());
+                mascotita.setGruñir(modificada.getGruñir());
                 modificado = true;
             }
         }
@@ -75,24 +88,36 @@ public class MascotaImpl implements MascotaInterfaz {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "No existe el animal");
         }
-        return response;
+        return response;*/
+        for (Mascota mascotita : response) {
+            if (mascotita.getIdMascota()==modificada.getIdMascota()){
+                mascotaRepository.save(modificada);
+                modificado = true;
+            }
+        }
+        if(!modificado){
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "No existe el animal");
+        }
+
+        return mascotaRepository.findAll();
     }
 
     @Override
     public List<Mascota> eliminarRaza(Mascota eliminada) {
         List<Mascota> response = ListaMascotas();
-
+        boolean eliminado = false;
         for (Mascota mascotita : response) {
-            if (mascotita.getRaza().equals(eliminada.getRaza())) {
-                response.remove(mascotita);
-                //No es una buena practica pero la unica solucion ya que no tenemos id
-                break;
-            }
-            else{
-                throw new ResponseStatusException(
-                        HttpStatus.NOT_FOUND, "No existe el animal");
+            if (mascotita.getIdMascota()==eliminada.getIdMascota()) {
+                mascotaRepository.deleteById(eliminada.getIdMascota());
+                eliminado = true;
             }
         }
-        return response;
+        if(!eliminado){
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "No existe el animal");
+        }
+
+        return mascotaRepository.findAll();
     }
 }
