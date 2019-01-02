@@ -50,4 +50,47 @@ public class MascotaImpl implements MascotaInterfaz {
 
         return null;
     }
+
+    @Override
+    public List<Mascota> aNuevo(Mascota nuevo){
+        List<Mascota> response = ListaMascotas();
+        response.add(nuevo);
+        return response;
+    }
+
+    @Override
+    public List<Mascota> modificar(Mascota modificada){
+        List<Mascota> response = ListaMascotas();
+        int posicion = -1;
+        for (Mascota mascotita:response) {
+            if(mascotita.getRaza().equals(modificada.getRaza())){
+              posicion = response.indexOf(mascotita);
+            }
+        }
+        if(posicion!=-1){
+         response.get(posicion).setPatas(modificada.getPatas());
+         response.get(posicion).setVivo(modificada.getVivo());
+        }
+        else{
+            response.add(modificada);
+        }
+
+        return response;
+    }
+
+    @Override
+    public List<Mascota> eliminarRaza(Mascota eliminada){
+        List<Mascota> response = ListaMascotas();
+        int posicion = -1;
+        for (Mascota mascotita:response) {
+            if(mascotita.getRaza().equals(eliminada.getRaza())){
+                posicion = response.indexOf(mascotita);
+            }
+        }
+        if(posicion!=-1){
+            response.remove(posicion);
+        }
+
+        return response;
+    }
 }

@@ -2,12 +2,10 @@ package grupo1.demo;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
+import javax.ws.rs.POST;
 import javax.ws.rs.PathParam;
 import java.util.List;
 
@@ -27,5 +25,14 @@ public class MascotaController {
     public Mascota mascota(@RequestParam("animal") String animal) {
         return mascotaInterfaz.mascota(animal);
     }
+
+    @PostMapping("/animalNuevo")
+    public List<Mascota> aNuevo(@RequestBody Mascota nuevo){ return mascotaInterfaz.aNuevo(nuevo); }
+
+    @PutMapping("/modificar")
+    public List<Mascota> modificar(@RequestBody Mascota modificada) {return mascotaInterfaz.modificar(modificada); }
+
+    @DeleteMapping("/eliminar")
+    public List<Mascota> eliminarRaza(@RequestBody Mascota eliminada){return mascotaInterfaz.eliminarRaza(eliminada);}
 
 }

@@ -13,6 +13,8 @@ public class Mascota {
         this.vivo = vivo;
     }
 
+    public Mascota(){}
+
     public String getRaza(){
         return raza;
     }
