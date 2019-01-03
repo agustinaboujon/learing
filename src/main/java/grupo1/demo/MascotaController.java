@@ -1,12 +1,12 @@
 package grupo1.demo;
 
 
+import grupo1.demo.entity.Mascota;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import grupo1.demo.service.MascotaInterfaz;
 
 
-import javax.ws.rs.POST;
-import javax.ws.rs.PathParam;
 import java.util.List;
 
 @RestController

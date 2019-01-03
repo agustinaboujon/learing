@@ -1,12 +1,14 @@
-package grupo1.demo;
+package grupo1.demo.service.Impl;
 
+import grupo1.demo.entity.Mascota;
+import grupo1.demo.repository.MascotaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import grupo1.demo.service.MascotaInterfaz;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

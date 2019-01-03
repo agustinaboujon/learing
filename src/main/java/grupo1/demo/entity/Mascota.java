@@ -1,4 +1,4 @@
-package grupo1.demo;
+package grupo1.demo.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

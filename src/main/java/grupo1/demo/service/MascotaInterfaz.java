@@ -1,5 +1,6 @@
-package grupo1.demo;
+package grupo1.demo.service;
 
+import grupo1.demo.entity.Mascota;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
