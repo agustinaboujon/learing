@@ -1,18 +1,21 @@
 package grupo1.demo.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Mascota {
     @Id
     private Long idMascota;
-    private String raza;
+    //private String raza;
+    //@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_raza")
+    private Raza raza;
     private int patas;
     private boolean vivo;
     private String gruñir;
 
-    public Mascota(long idMascota, String raza, int patas, boolean vivo){
+    public Mascota(long idMascota, Raza raza, int patas, boolean vivo){
         this.idMascota = idMascota;
         this.raza = raza;
         this.patas = patas;
@@ -23,10 +26,10 @@ public class Mascota {
 
     public Long getIdMascota(){ return idMascota; }
 
-    public String getRaza(){
+    public Raza getRaza(){
         return raza;
     }
-    public void setRaza(String raza){
+    public void setRaza(Raza raza){
         this.raza = raza;
     }
 

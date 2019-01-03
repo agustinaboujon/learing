@@ -49,7 +49,7 @@ public class MascotaImpl implements MascotaInterfaz {
         List<Mascota> response = ListaMascotas();
 
         for (Mascota mascota : response) {
-            if (mascota.getRaza().equals(raza)) {
+            if (mascota.getRaza().getAnimal().equals(raza)) {
                 return mascota;
             }
         }
