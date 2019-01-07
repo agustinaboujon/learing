@@ -2,9 +2,11 @@ package grupo1.demo.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.io.Serializable;
+import java.util.List;
 
 @Entity
-public class Raza {
+public class Raza implements Serializable {
     @Id
     private Long idRaza;
     private String animal;

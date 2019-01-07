@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import grupo1.demo.service.MascotaInterfaz;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service

@@ -2,6 +2,7 @@ package grupo1.demo;
 
 
 import grupo1.demo.entity.Mascota;
+import grupo1.demo.entity.Raza;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import grupo1.demo.service.MascotaInterfaz;
@@ -16,15 +17,14 @@ public class MascotaController {
     @Autowired
     private MascotaInterfaz mascotaInterfaz;
 
-    @RequestMapping(path = "/list")
+    @GetMapping(path = "/list")
     public List<Mascota> listaMascota(){
         return mascotaInterfaz.getMascota();
     }
 
     @GetMapping
-    public Mascota mascota(@RequestParam("animal") String animal) {
-        return mascotaInterfaz.mascota(animal);
-    }
+    public Mascota mascota(@RequestParam("animal") String animal) { return mascotaInterfaz.mascota(animal); }
+    //public List<Mascota> listaAnimal(@RequestParam("raza") String raza){ return mascotaInterfaz.buscarPorRaza(raza); }
 
     @PostMapping
     public List<Mascota> aNuevo(@RequestBody Mascota nuevo){ return mascotaInterfaz.aNuevo(nuevo); }

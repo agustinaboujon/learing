@@ -1,9 +1,10 @@
 package grupo1.demo.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public class Mascota {
+public class Mascota implements Serializable {
     @Id
     private Long idMascota;
     //private String raza;
