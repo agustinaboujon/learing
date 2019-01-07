@@ -1,5 +1,7 @@
 package grupo1.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -7,8 +9,7 @@ import java.io.Serializable;
 public class Mascota implements Serializable {
     @Id
     private Long idMascota;
-    //private String raza;
-    //@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_raza")
     private Raza raza;

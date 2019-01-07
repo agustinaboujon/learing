@@ -1,7 +1,6 @@
 package grupo1.demo.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
@@ -12,6 +11,9 @@ public class Raza implements Serializable {
     private String animal;
     private String tipoRaza;
     private String color;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "raza")
+    private List<Mascota> mascotasList;
 
     public Raza (Long idRaza, String animal, String tipoRaza, String color){
         this.idRaza = idRaza;
@@ -33,4 +35,9 @@ public class Raza implements Serializable {
     public String getColor(){ return color; }
     public void setColor(String color){ this.color = color; }
 
+    public List<Mascota> getMascotasList() { return mascotasList; }
+
+    public void setMascotasList(List<Mascota> mascotasList) {
+        this.mascotasList = mascotasList;
+    }
 }
