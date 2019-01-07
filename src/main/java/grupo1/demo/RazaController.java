@@ -15,17 +15,29 @@ public class RazaController {
     private RazaInterfaz razaInterfaz;
 
     @GetMapping(path = "/list")
-    public List<Raza> listaMascota(){ return razaInterfaz.getMascota(); }
+    public List<Raza> listaMascota() {
+        return razaInterfaz.getMascota();
+    }
 
     @GetMapping
-    public Raza buscarPorRaza(@RequestParam("animal") String animal){ return razaInterfaz.buscarPorRaza(animal); }
+    public Raza buscarPorRaza(@RequestParam("animal") String animal) {
+        return razaInterfaz.buscarPorRaza(animal);
+    }
 
     @PostMapping
-    public List<Raza> razaNueva(@RequestBody Raza nuevo){ return razaInterfaz.razaNueva(nuevo); }
-    
+    public List<Raza> razaNueva(@RequestBody Raza nuevo) {
+        return razaInterfaz.razaNueva(nuevo);
+    }
+
+
     @PutMapping
-    public List<Raza> modificar( @RequestBody Raza modificada){ return razaInterfaz.modificar(modificada); }
+    public List<Raza> modificar(@RequestBody Raza modificada) {
+        return razaInterfaz.modificar(modificada);
+    }
 
     @DeleteMapping
-    public List<Raza> eliminarRaza(@RequestBody Raza eliminada){return razaInterfaz.eliminarRaza(eliminada);}
+    public List<Raza> eliminarRaza(@RequestBody Raza eliminada) {
+        return razaInterfaz.eliminarRaza(eliminada);
+    }
+
 }
